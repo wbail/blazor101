@@ -8,7 +8,7 @@ public static class BookClient
     {
         new Book()
         {
-            Id = 1,
+            Id = Guid.Parse("5adbf596-01ff-40b4-a2a3-3a34a1f9ddaf"),
             Name = "1984",
             Genre = "Novel",
             Price = 9.99M,
@@ -16,7 +16,7 @@ public static class BookClient
         },
         new Book()
         {
-            Id = 2,
+            Id = Guid.Parse("4dee6a3e-22a8-424a-8e05-cf964238dd69"),
             Name = "War of the Worlds",
             Genre = "Novel",
             Price = 10.99M,
@@ -24,7 +24,7 @@ public static class BookClient
         },
         new Book()
         {
-            Id = 3,
+            Id = Guid.Parse("fe62a0eb-4085-42fc-9ff1-34822540b7ef"),
             Name = "Time Machine",
             Genre = "Novel",
             Price = 7.00M,
@@ -39,11 +39,11 @@ public static class BookClient
 
     public static void AddBook(Book book)
     {
-        book.Id = books.Max(book => book.Id) + 1;
+        book.Id = Guid.NewGuid();
         books.Add(book);
     }
 
-    public static Book GetBook(int id)
+    public static Book GetBook(Guid id)
     {
         return books.Find(book => book.Id == id) ?? throw new Exception("Could not find the book!");
     }
@@ -57,7 +57,7 @@ public static class BookClient
         existingBook.ReleaseDate = updatedBook.ReleaseDate;
     }
 
-    public static void DeleteBook(int id)
+    public static void DeleteBook(Guid id)
     {
         Book book = GetBook(id);
 

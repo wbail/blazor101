@@ -1,5 +1,5 @@
 ﻿@page "/book"
-@page "/book/{id:int}"
+@page "/book/{id:guid}"
 @using Models;
 @inject NavigationManager NavigationManager;
 
@@ -56,11 +56,13 @@ else
 
 @code {
     [Parameter]
-    public int? Id { get; set; }
+    public Guid? Id { get; set; }
 
     private Book? book;
 
     private string title = string.Empty;
+
+    private static Guid defaultId = new Guid("00000000-0000-0000-0000-000000000000");
 
     protected override void OnParametersSet()
     {
@@ -77,7 +79,7 @@ else
                 ReleaseDate = foundBook.ReleaseDate
             };
 
-            title = $"{book.Name}";
+            title = $"Edit {book.Name}";
         }
         else
         {
@@ -94,7 +96,7 @@ else
 
     private void HandleSubmit()
     {
-        if (book!.Id == 0)
+        if (book!.Id == defaultId)
         {
             BookClient.AddBook(book);
         }
